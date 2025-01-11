@@ -1,19 +1,22 @@
 // script.js
 // Use Papa Parse to load the CSV, then initialize DataTables
 $(document).ready(function () {
-  Papa.parse('data/campsites.csv', {
+  Papa.parse("data/campsites.csv", {
     download: true,
     header: true, // If your CSV has a header row
     complete: function (results) {
+      // For debugging, log the parsed data to console
+      console.log("Parsed CSV data:", results.data);
+
       const data = results.data;
-      let rowsHtml = '';
+      let rowsHtml = "";
 
       data.forEach((row) => {
-        // Update these field names to match your CSV headers
-        const parkName = row['Park Name'] || '';
-        const state = row['State'] || '';
-        const siteType = row['Site Type'] || '';
-        const maxRvLength = row['Max RV Length'] || '';
+        // Update these field names to match your CSV headers exactly
+        const parkName = row["Park Name"] || "";
+        const state = row["State"] || "";
+        const siteType = row["Site Type"] || "";
+        const maxRvLength = row["Max RV Length"] || "";
 
         rowsHtml += `
           <tr>
@@ -26,16 +29,16 @@ $(document).ready(function () {
       });
 
       // Insert rows into the table
-      $('#campsitesTable tbody').html(rowsHtml);
+      $("#campsitesTable tbody").html(rowsHtml);
 
       // Initialize DataTables with export buttons
-      $('#campsitesTable').DataTable({
-        dom: 'Bfrtip',
+      $("#campsitesTable").DataTable({
+        dom: "Bfrtip",
         buttons: [
-          'copyHtml5',
-          'csvHtml5',
-          'excelHtml5',
-          'pdfHtml5'
+          "copyHtml5",
+          "csvHtml5",
+          "excelHtml5",
+          "pdfHtml5"
         ]
       });
     }
